@@ -162,5 +162,42 @@ namespace ProjectEuler
                 File.AppendAllText(KnownPrimesFileName, string.Format("{0}{1}", Environment.NewLine, num.ToString()));
             }            
         }
+
+        public static List<UInt64> Factorize (UInt64 num)
+        {
+            List<UInt64> factors = new List<UInt64>();                        
+            GeneratePrimes(num);
+            if (IsPrime(num))
+            {
+                factors.Add(num);
+                return factors;
+            }
+
+            double tempNum = num;
+            double newNum = num;
+            double prime = KnownPrimes.First();
+
+            int index;
+
+            while (prime <= newNum)
+            {
+                tempNum = newNum / prime;
+
+                //check if result is an integer (nothing past decimal point)
+                if (tempNum % 1 == 0)
+                {
+                    factors.Add((UInt64)prime);
+                    newNum = (UInt64)tempNum;
+                }
+                else
+                {
+                    //get the next prime in list
+                    index = KnownPrimes.BinarySearch((UInt64)prime);
+                    prime = KnownPrimes[index + 1];
+                }
+            }
+
+            return factors;
+        }
     }
 }

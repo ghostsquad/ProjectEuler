@@ -58,36 +58,25 @@ namespace ProjectEuler
 
             for (UInt64 num = KnownPrimes.LastOrDefault() + 2; num <= max; num += 2)
             {
-                double sqrt = Math.Sqrt(num);                
+                double sqrt = Math.Sqrt(num);
 
-                foreach (UInt64 prime in KnownPrimes)
+                if (IsPrime(num))
                 {
-                    if (prime > sqrt)
+                    primesGenerated++;
+                    KnownPrimes.Add(num);
+                    newPrimes.Add(num.ToString());
+
+                    if (primesGenerated == 1000)
                     {
-                        //Console.WriteLine(string.Format("found prime: {0}", num));
-                        primesGenerated++;
-                        KnownPrimes.Add(num); 
-                        newPrimes.Add(num.ToString());
+                        totalPrimesGenerated += primesGenerated;
+                        Console.WriteLine(string.Format("primes generated: {0}", totalPrimesGenerated.ToString()));
+                        //Thread.Sleep(2000);                            
 
-                        //we write 1000 primes to the file at a time, for performance reasons
-                        if (primesGenerated == 1000)
-                        {
-                            totalPrimesGenerated += primesGenerated;                            
-                            Console.WriteLine(string.Format("primes generated: {0}", totalPrimesGenerated.ToString()));
-                            //Thread.Sleep(2000);                            
-
-                            File.AppendAllLines(KnownPrimesFileName,newPrimes);
-                            newPrimes = new List<string>();
-                            primesGenerated = 0;
-                        }
-
-                        break;
+                        File.AppendAllLines(KnownPrimesFileName, newPrimes);
+                        newPrimes = new List<string>();
+                        primesGenerated = 0;
                     }
-                    if (num % prime == 0)
-                    {
-                        break;
-                    }
-                }
+                }                
             }
 
             //write stragglers to the file
@@ -96,6 +85,35 @@ namespace ProjectEuler
                 Console.WriteLine(string.Format("primes generated: {0}", totalPrimesGenerated.ToString()));
                 File.AppendAllLines(KnownPrimesFileName, newPrimes);
             }
+        }
+        
+        public static void GeneratePrimesUsingMaxNumberOfTerms(int maxNumberOfTerms)
+        {
+            if (!initialized)
+            {
+                throw new System.InvalidOperationException("Initialization Needed");
+            }
+
+            int termsGenerated = KnownPrimes.Count;
+            if(termsGenerated >= maxNumberOfTerms)
+            {
+                return;
+            }
+
+            UInt64 num = KnownPrimes.LastOrDefault() + 2;
+
+            while(termsGenerated < maxNumberOfTerms)
+            {
+                double sqrt = Math.Sqrt(num);
+
+                if (IsPrime(num))
+                {
+                    termsGenerated++;
+                    KnownPrimes.Add(num);
+                }
+
+                num += 2;
+            }           
         }
 
         /*

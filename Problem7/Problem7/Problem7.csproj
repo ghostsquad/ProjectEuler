@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{78850E7D-94FF-4731-9875-86BEBB9C6A26}</ProjectGuid>
+    <ProjectGuid>{1B4C5331-3243-475C-A7E9-9A94BC8EEFC7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Problem6</RootNamespace>
-    <AssemblyName>Problem6</AssemblyName>
+    <RootNamespace>Problem7</RootNamespace>
+    <AssemblyName>Problem7</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,11 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Problem6.cs" />
+    <Compile Include="Problem7.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PrimeNumbers\PrimeNumbers\PrimeNumbers.csproj">
+      <Project>{ecec624f-92d9-4400-8971-d6a51e574415}</Project>
+      <Name>PrimeNumbers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

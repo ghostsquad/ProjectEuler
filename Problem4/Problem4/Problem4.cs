@@ -15,19 +15,13 @@ namespace ProjectEuler
 {
     class Problem4
     {
+        private static int lowestProductPreviousRun;
+        private static int largestPalindrome = 0;
+        private static int factor1startpoint = 999;
+        private static int factor2startpoint = factor1startpoint;
+
         static void Main(string[] args)
-        {
-            int factor1 = 999;
-            int factor2 = 999;
-
-            int product = 0;
-            int largestPalindrome = 0;
-
-            int lowestProductPreviousRun = product;
-                        
-            string productString;
-            string productStringReverse;
-
+        {                                              
             //this doesn't work, decrementing evenly skips certain factors
             
             ////now we can work backwards, doing trial multiplication until we find a number that is a palindrome
@@ -97,54 +91,69 @@ namespace ProjectEuler
              * at some point, we need to break out of the outer loop, so we don't needlessly multiply tiny numbers
              * this happens when factor2 starts fresh, and is immediately met with a product that is smaller that the lowest product from the previous run
              */
-
-            bool breakFactor1Loop = false;
-
-            for (int f1 = factor1; f1 > 0; f1--)
+                                   
+            for (int factor1 = factor1startpoint; factor1 > 0; factor1--)
             {
                 //here we set factor 2 to the same as factor one, as shown in the example above
-                //as the outer loop progresses, the inner loop starting point will always be in-line
-                factor2 = f1;
+                //as the outer loop progresses, the inner loop starting point will always be the same as the outer loop starting point
+                factor2startpoint = factor1;
 
-                for (int f2 = factor2; f2 > 0; f2--)
-                {
-                    product = f1 * f2;
-
-                    //products are only getting smaller for each iteration
-                    //break early if the product is smaller than the lowest product from the previous run
-                    if (product < lowestProductPreviousRun)
-                    {
-                        //here is where we tell the factor1 loop to break, because any operation done from here on out will always
-                        //be smaller than the largest palindrome found so far
-                        if (f2 == factor2)
-                        {
-                            breakFactor1Loop = true;
-                        }
-                        break;
-                    }
-
-                    //check if the number is the same forwards and backwards by converting the number to a string and reversing the string
-                    productString = product.ToString();
-                    productStringReverse = string.Join("", productString.ToCharArray().Reverse());
-                    
-                    if (productString == productStringReverse)
-                    {
-                        if (product > largestPalindrome)
-                        {
-                            lowestProductPreviousRun = product;
-                            largestPalindrome = product;
-                        }                        
-                        break;
-                    }
-                }
-                if (breakFactor1Loop)
+                if (!CheckIfLargerPalindromeAvailable(factor2startpoint))
                 {
                     break;
                 }
             }
 
-            Console.WriteLine(string.Format("answer: {0}", largestPalindrome.ToString()));
+            Console.WriteLine(string.Format("answer: {0}", Problem4.largestPalindrome.ToString()));
             Console.ReadLine();
+        }
+
+        private static bool CheckIfLargerPalindromeAvailable(int factor2startpoint)
+        {
+            int factor1 = factor2startpoint;
+
+            int product;
+            string productString;
+            string productStringReverse;
+
+            for (int factor2 = factor2startpoint; factor2 > 0; factor2--)
+            {
+                product = factor1 * factor2;
+
+                //set the lowest product to the current product if it hasn't been set yet
+                if (Problem4.lowestProductPreviousRun == null)
+                {
+                    Problem4.lowestProductPreviousRun = product;
+                }
+
+                //products are only getting smaller for each iteration
+                //break early if the product is smaller than the lowest product from the previous run
+                if (product < Problem4.lowestProductPreviousRun)
+                {
+                    //here is where we tell the factor1 loop to break, because any operation done from here on out will always
+                    //be smaller than the largest palindrome found so far
+                    if (factor2 == factor2startpoint)
+                    {
+                        return false;
+                    }
+                    break;
+                }
+
+                //check if the number is the same forwards and backwards by converting the number to a string and reversing the string
+                productString = product.ToString();
+                productStringReverse = string.Join("", productString.ToCharArray().Reverse());
+
+                if (productString == productStringReverse)
+                {
+                    if (product > Problem4.largestPalindrome)
+                    {
+                        Problem4.lowestProductPreviousRun = product;
+                        Problem4.largestPalindrome = product;
+                    }
+                    break;
+                }
+            }
+            return true;
         }
     }
 }

@@ -21,9 +21,7 @@ namespace ProjectEuler
             UInt64 answer = 0;
             UInt64 primeFactorial;
             Dictionary<UInt64, int> factorPowersFinal = new Dictionary<UInt64, int>();
-            Dictionary<UInt64, int> factorPowers;
-
-            PrimeNumbers.InitPrimeNumbers();            
+            Dictionary<UInt64, int> factorPowers;        
 
             /*
              * loop through each number, and factorize it

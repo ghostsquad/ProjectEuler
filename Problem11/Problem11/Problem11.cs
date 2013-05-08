@@ -41,6 +41,7 @@ namespace ProjectEuler
         private static string GridFileName = "Grid.txt";
         private static List<List<int>> Grid;
         private static List<GridCoordinate> FinalCoordinates = new List<GridCoordinate>();
+        private static string FinalDirection = DirectionType.NoDirection;
 
         static void Main(string[] args)
         {
@@ -64,9 +65,7 @@ namespace ProjectEuler
             FinalCoordinates.Add(new GridCoordinate());
             FinalCoordinates.Add(new GridCoordinate());
             FinalCoordinates.Add(new GridCoordinate());
-            FinalCoordinates.Add(new GridCoordinate());
-
-            string FinalDirection = DirectionType.NoDirection;
+            FinalCoordinates.Add(new GridCoordinate());            
 
             //we will need to keep track of coordinates as we loop, in case the product of numbers is > answer
             List<GridCoordinate> tempCoordinates = new List<GridCoordinate>();
@@ -107,8 +106,7 @@ namespace ProjectEuler
 
                         if (!moveOn)
                         {
-                            SaveProductCoordinates(tempProduct, tempCoordinates);
-                            FinalDirection = DirectionType.Right;
+                            SaveProductCoordinates(tempProduct, tempCoordinates, DirectionType.Right);
                         }
                     }                        
 
@@ -137,8 +135,7 @@ namespace ProjectEuler
 
                         if (!moveOn)
                         {
-                            SaveProductCoordinates(tempProduct, tempCoordinates);
-                            FinalDirection = DirectionType.Down;
+                            SaveProductCoordinates(tempProduct, tempCoordinates, DirectionType.Down);
                         }
                     }                     
 
@@ -171,9 +168,8 @@ namespace ProjectEuler
                         }                            
 
                         if (!moveOn)
-                        {
-                            SaveProductCoordinates(tempProduct, tempCoordinates);
-                            FinalDirection = DirectionType.DiagonalRight;
+                        {                            
+                            SaveProductCoordinates(tempProduct, tempCoordinates, DirectionType.DiagonalRight);
                         }
                     }                        
 
@@ -207,27 +203,25 @@ namespace ProjectEuler
 
                         if (!moveOn)
                         {
-                            SaveProductCoordinates(tempProduct, tempCoordinates);
-                            FinalDirection = DirectionType.DiagonalLeft;
+                            SaveProductCoordinates(tempProduct, tempCoordinates, DirectionType.DiagonalLeft);
                         }
                     }                                            
                 }
             }
 
+            Problem11.DisplayGrid();
+
+            Console.WriteLine("");
+
             Console.WriteLine(string.Format("answer: {0}", Problem11.answer.ToString()));
 
-            tempProduct = 1;
+            //foreach (GridCoordinate coor in FinalCoordinates)
+            //{
+            //    Console.WriteLine("Num: " + coor.Num.ToString());
+            //    Console.WriteLine(string.Format("x: {0}; y: {0}", coor.Point.X.ToString(), coor.Point.Y.ToString()));           
+            //}
 
-            foreach (GridCoordinate coor in FinalCoordinates)
-            {
-                Console.WriteLine("Num: " + coor.Num.ToString());
-                Console.WriteLine(string.Format("x: {0}; y: {0}", coor.Point.X.ToString(), coor.Point.Y.ToString()));
-                tempProduct *= (ulong)coor.Num;
-            }
-
-            Console.WriteLine("double checking math, product of numbers = " + tempProduct.ToString());
-
-            Console.WriteLine("direction: " + FinalDirection);
+            Console.WriteLine("direction: " + Problem11.FinalDirection);
 
             Console.ReadLine();
         }
@@ -247,19 +241,52 @@ namespace ProjectEuler
             }
         }
 
-        private static void SaveProductCoordinates(ulong tempProduct, List<GridCoordinate> TempCoordinates)
+        private static void SaveProductCoordinates(ulong tempProduct, List<GridCoordinate> TempCoordinates, string direction)
         {
             if (tempProduct > Problem11.answer)
             {
                 Point TempPoint;
 
                 Problem11.answer = tempProduct;
+                Problem11.FinalDirection = direction;
                 for (int i = 0; i < 4; i++)
                 {
                     TempPoint = TempCoordinates[i].Point;
                     Problem11.FinalCoordinates[i].Num = TempCoordinates[i].Num;
                     Problem11.FinalCoordinates[i].Point = new Point(TempPoint.X, TempPoint.Y);
                 }
+            }
+        }
+
+        private static void DisplayGrid()
+        {
+            for (int rowNum = 0; rowNum < Problem11.Grid.Count; rowNum++)
+            {
+                List<int> gridRow = Problem11.Grid[rowNum];
+                for (int colNum = 0; colNum < gridRow.Count; colNum++)
+                {
+
+                    foreach (GridCoordinate gridCoor in FinalCoordinates)
+                    {
+                        if (gridCoor.Point.X == colNum && gridCoor.Point.Y == rowNum)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            break;
+                        }
+                    }
+
+                    Console.Write(Problem11.Grid[rowNum][colNum].ToString().PadLeft(2, '0'));
+                    Console.ResetColor();
+
+                    if (colNum + 1 < gridRow.Count)
+                    {
+                        Console.Write(" ");
+                    }
+                    else
+                    {
+                        Console.Write(Environment.NewLine);
+                    }
+                }                
             }
         }
 

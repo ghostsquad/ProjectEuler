@@ -8,11 +8,12 @@ namespace ProjectEuler
 {
     class ProblemX
     {
+		private static ulong answer = 0;
+		
         static void Main(string[] args)
         {
-            ulong answer = 0;
 
-            Console.WriteLine(string.Format("answer: {0}", answer.ToString()));
+            Console.WriteLine(string.Format("answer: {0}", ProblemX.answer.ToString()));
             Console.ReadLine();
         }
     }

@@ -76,34 +76,7 @@ namespace ProjectEuler
             }
         }
         
-        public static void GeneratePrimesUsingMaxNumberOfTerms(int maxNumberOfTerms)
-        {
-            if (!initialized)
-            {
-                throw new System.InvalidOperationException("Initialization Needed");
-            }
 
-            int termsGenerated = KnownPrimes.Count;
-            if(termsGenerated >= maxNumberOfTerms)
-            {
-                return;
-            }
-
-            UInt64 num = KnownPrimes.LastOrDefault() + 2;
-
-            while(termsGenerated < maxNumberOfTerms)
-            {
-                double sqrt = Math.Sqrt(num);
-
-                if (IsPrime(num))
-                {
-                    termsGenerated++;
-                    KnownPrimes.Add(num);
-                }
-
-                num += 2;
-            }           
-        }
         
         public static void GeneratePrimesUsingMaxNumberOfTerms(int maxNumberOfTerms)
         {            

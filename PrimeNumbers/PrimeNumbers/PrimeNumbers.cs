@@ -11,44 +11,33 @@ namespace ProjectEuler
 {
     public static class PrimeNumbers
     {
-        public static List<UInt64> KnownPrimes { get; private set; }
+        public static List<ulong> KnownPrimes { get; private set; }
         private static string KnownPrimesFileName = "KnownPrimes.txt";
-        private static bool initialized = false;
 
-        public static void InitPrimeNumbers()
+        static PrimeNumbers()
         {
-            if (!initialized)
+            KnownPrimes = new List<ulong>();
+            List<string> KnownPrimesStrings = File.ReadAllLines(KnownPrimesFileName).Where(s => !string.IsNullOrEmpty(s)).ToList<string>();
+
+            ulong primeNum;
+
+            foreach (string primeNumStr in KnownPrimesStrings)
             {
-                KnownPrimes = new List<UInt64>();
-                List<string> KnownPrimesStrings = File.ReadAllLines(KnownPrimesFileName).Where(s => !string.IsNullOrEmpty(s)).ToList<string>();                
-
-                UInt64 primeNum;
-
-                foreach (string primeNumStr in KnownPrimesStrings)
+                if (ulong.TryParse(primeNumStr, out primeNum))
                 {
-                    if (UInt64.TryParse(primeNumStr, out primeNum))
-                    {
-                        KnownPrimes.Add(primeNum);
-                    }
-                    else
-                    {
-                        System.NotSupportedException nse = new System.NotSupportedException(string.Format("Unable to convert [{0}] to UInt64", primeNum));
-                        throw nse;
-                    }
+                    KnownPrimes.Add(primeNum);
                 }
-
-                initialized = true;
-            }            
+                else
+                {
+                    System.NotSupportedException nse = new System.NotSupportedException(string.Format("Unable to convert [{0}] to ulong", primeNum));
+                    throw nse;
+                }
+            }          
         }
 
-        public static void GeneratePrimes(UInt64 max)
+        public static void GeneratePrimes(ulong max)
         {
-            if (!initialized)
-            {
-                throw new System.InvalidOperationException("Initialization Needed");
-            }
-
-            //Console.WriteLine("started");
+            //Console.WriteLine("GeneratePrimes started");
 
             File.AppendAllText(KnownPrimesFileName, Environment.NewLine);
 
@@ -56,7 +45,7 @@ namespace ProjectEuler
             uint totalPrimesGenerated = 0;
             List<string> newPrimes = new List<string>();
 
-            for (UInt64 num = KnownPrimes.LastOrDefault() + 2; num <= max; num += 2)
+            for (ulong num = KnownPrimes.LastOrDefault() + 2; num <= max; num += 2)
             {
                 double sqrt = Math.Sqrt(num);
 
@@ -88,19 +77,14 @@ namespace ProjectEuler
         }
         
         public static void GeneratePrimesUsingMaxNumberOfTerms(int maxNumberOfTerms)
-        {
-            if (!initialized)
-            {
-                throw new System.InvalidOperationException("Initialization Needed");
-            }
-
+        {            
             int termsGenerated = KnownPrimes.Count;
             if(termsGenerated >= maxNumberOfTerms)
             {
                 return;
-            }
+            }            
 
-            UInt64 num = KnownPrimes.LastOrDefault() + 2;
+            ulong num = KnownPrimes.LastOrDefault() + 2;
 
             while(termsGenerated < maxNumberOfTerms)
             {
@@ -124,13 +108,8 @@ namespace ProjectEuler
          * known—then trial divisions need to be checked only for those m that are prime.
          */        
 
-        public static bool IsPrime(UInt64 Num)
-        {
-            if (!initialized)
-            {
-                throw new System.InvalidOperationException("Initialization Needed");
-            }
-
+        public static bool IsPrime(ulong Num)
+        {            
             //first let's just see if the num is already in our known primes list
             //it might also be faster to just get the last num in our known primes list and see if it's bigger
             //the way we generate primes ensures that we have all primes, and they are sorted
@@ -152,7 +131,7 @@ namespace ProjectEuler
                 GeneratePrimes((ulong)sqrt + 1);
             }
 
-            foreach (UInt64 prime in KnownPrimes)
+            foreach (ulong prime in KnownPrimes)
             {
                 if (prime > sqrt)
                 {
@@ -167,12 +146,8 @@ namespace ProjectEuler
             return true;
         }
 
-        private static void AddToKnownPrimes(UInt64 num)
+        private static void AddToKnownPrimes(ulong num)
         {
-            if (!initialized)
-            {
-                throw new System.InvalidOperationException("Initialization Needed");
-            }
 
             if (num > KnownPrimes.LastOrDefault())
             {
@@ -181,10 +156,10 @@ namespace ProjectEuler
             }            
         }
 
-        public static List<UInt64> Factorize (UInt64 num)
+        public static List<ulong> Factorize (ulong num)
         {
-            List<UInt64> factors = new List<UInt64>();                        
-            GeneratePrimes(num);
+            List<ulong> factors = new List<ulong>();
+            PrimeNumbers.GeneratePrimes(num);
             if (IsPrime(num))
             {
                 factors.Add(num);
@@ -204,13 +179,13 @@ namespace ProjectEuler
                 //check if result is an integer (nothing past decimal point)
                 if (tempNum % 1 == 0)
                 {
-                    factors.Add((UInt64)prime);
-                    newNum = (UInt64)tempNum;
+                    factors.Add((ulong)prime);
+                    newNum = (ulong)tempNum;
                 }
                 else
                 {
                     //get the next prime in list
-                    index = KnownPrimes.BinarySearch((UInt64)prime);
+                    index = KnownPrimes.BinarySearch((ulong)prime);
                     prime = KnownPrimes[index + 1];
                 }
             }

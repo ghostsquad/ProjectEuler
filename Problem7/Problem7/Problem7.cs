@@ -20,7 +20,6 @@ namespace ProjectEuler
             UInt64 answer = 0;
             int terms = 10001;
 
-            PrimeNumbers.InitPrimeNumbers();
             PrimeNumbers.GeneratePrimesUsingMaxNumberOfTerms(terms);
 
             answer = PrimeNumbers.KnownPrimes[terms - 1];

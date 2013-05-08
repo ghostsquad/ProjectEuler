@@ -14,7 +14,6 @@ namespace ProjectEuler
             UInt64 myNum = 600851475143;
             UInt64 sqrt = (UInt64)Math.Sqrt(myNum);                               
 
-            PrimeNumbers.InitPrimeNumbers();
             PrimeNumbers.GeneratePrimes(sqrt);
 
             //find the closest prime number to the SQRT without going over the SQRT

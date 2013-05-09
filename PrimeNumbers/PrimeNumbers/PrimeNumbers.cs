@@ -161,7 +161,9 @@ namespace ProjectEuler
         public static List<ulong> Factorize (ulong num)
         {
             List<ulong> factors = new List<ulong>();
-            PrimeNumbers.GeneratePrimes(num);
+            double sqrt = Math.Sqrt(num);
+
+            PrimeNumbers.GeneratePrimes((ulong)sqrt);
             if (IsPrime(num))
             {
                 factors.Add(num);
@@ -170,9 +172,8 @@ namespace ProjectEuler
 
             double tempNum = num;
             double newNum = num;
-            double prime = KnownPrimes.First();
-
-            int index;
+            int primeIndex = 0;
+            double prime = KnownPrimes[primeIndex];
 
             while (prime <= newNum)
             {
@@ -187,8 +188,8 @@ namespace ProjectEuler
                 else
                 {
                     //get the next prime in list
-                    index = KnownPrimes.BinarySearch((ulong)prime);
-                    prime = KnownPrimes[index + 1];
+                    primeIndex++;
+                    prime = KnownPrimes[primeIndex];
                 }
             }
 

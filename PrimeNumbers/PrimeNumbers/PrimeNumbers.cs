@@ -195,5 +195,75 @@ namespace ProjectEuler
 
             return factors;
         }
+
+        public static List<uint> Factorize(uint num)
+        {
+            List<uint> factors = new List<uint>();
+            double sqrt = Math.Sqrt(num);
+
+            PrimeNumbers.GeneratePrimes((ulong)sqrt);
+            if (IsPrime((ulong)num))
+            {
+                factors.Add(num);
+                return factors;
+            }
+
+            double tempNum = num;
+            double newNum = num;
+            int primeIndex = 0;
+            double prime = KnownPrimes[primeIndex];
+
+            while (prime <= newNum)
+            {
+                tempNum = newNum / prime;
+
+                //check if result is an integer (nothing past decimal point)
+                if (tempNum % 1 == 0)
+                {
+                    factors.Add((uint)prime);
+                    newNum = tempNum;
+                }
+                else
+                {
+                    //get the next prime in list
+                    primeIndex++;
+                    prime = KnownPrimes[primeIndex];
+                }
+            }
+
+            return factors;
+        }
+
+        public static List<Tuple<ulong, int>> FactorizeReturnPowerTuples(ulong num)
+        {
+            List<ulong> factors = PrimeNumbers.Factorize(num);            
+                              
+            List<Tuple<ulong, int>> PowerTuples = new List<Tuple<ulong, int>>();
+
+            ulong lastFactor = factors[0];
+            int currentPower = 0;
+
+            foreach (ulong factor in factors)
+            {
+                if (factor != lastFactor)
+                {
+                    PowerTuples.Add(new Tuple<ulong, int>(lastFactor, currentPower));
+                    lastFactor = factor;
+                    currentPower = 1;
+                }
+                else
+                {
+                    currentPower++;
+                }
+            }
+
+            return PowerTuples;                                          
+        }
+    }
+
+    enum FactorizeOptions
+    {
+        None
+       ,PowerTuples
     }
 }

@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6A033FEF-57A9-415B-8FE4-BE2DFD9997BF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{6D6B10FA-00C8-4C93-8583-C917D2DF29D2}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProblemX</RootNamespace>
-    <AssemblyName>ProblemX</AssemblyName>
+    <RootNamespace>MathHelper</RootNamespace>
+    <AssemblyName>MathHelper</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,17 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Problem15.cs" />
+    <Compile Include="MathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\ExtensionMethods\MathHelper\MathHelper.csproj">
-      <Project>{6d6b10fa-00c8-4c93-8583-c917d2df29d2}</Project>
-      <Name>MathHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\PrimeNumbers\PrimeNumbers\PrimeNumbers.csproj">
       <Project>{ecec624f-92d9-4400-8971-d6a51e574415}</Project>
       <Name>PrimeNumbers</Name>

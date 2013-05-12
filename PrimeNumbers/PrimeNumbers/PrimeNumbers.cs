@@ -234,6 +234,44 @@ namespace ProjectEuler
             return factors;
         }
 
+        public static List<int> Factorize(int num)
+        {
+            List<int> factors = new List<int>();
+            double sqrt = Math.Sqrt(num);
+
+            PrimeNumbers.GeneratePrimes((ulong)sqrt);
+            if (IsPrime((ulong)num))
+            {
+                factors.Add(num);
+                return factors;
+            }
+
+            double tempNum = num;
+            double newNum = num;
+            int primeIndex = 0;
+            double prime = KnownPrimes[primeIndex];
+
+            while (prime <= newNum)
+            {
+                tempNum = newNum / prime;
+
+                //check if result is an integer (nothing past decimal point)
+                if (tempNum % 1 == 0)
+                {
+                    factors.Add((int)prime);
+                    newNum = tempNum;
+                }
+                else
+                {
+                    //get the next prime in list
+                    primeIndex++;
+                    prime = KnownPrimes[primeIndex];
+                }
+            }
+
+            return factors;
+        }
+
         public static List<Tuple<ulong, int>> FactorizeReturnPowerTuples(ulong num)
         {
             List<ulong> factors = PrimeNumbers.Factorize(num);            
@@ -258,6 +296,25 @@ namespace ProjectEuler
             }
 
             return PowerTuples;                                          
+        }
+
+        public static SortedList<ulong,ulong> FactorizeReturnFactorPowers(ulong num)
+        {
+            SortedList<ulong, ulong> factorPowers = new SortedList<ulong, ulong>();
+            List<ulong> factors = PrimeNumbers.Factorize(num);
+            foreach (ulong factor in factors)
+            {
+                //increment the "power" in the dictionary by one, otherwise, add a new entry at power of 1
+                if (factorPowers.ContainsKey(factor))
+                {
+                    factorPowers[factor]++;
+                }
+                else
+                {
+                    factorPowers[factor] = 1;
+                }
+            }
+            return factorPowers;
         }
     }
 

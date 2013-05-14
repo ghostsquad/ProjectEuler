@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace ProjectEuler
 {
@@ -38,6 +34,8 @@ namespace ProjectEuler
                 term1 = term2;
                 term2 = tempTerm + term2;
             }
+
+            Debug.WriteLine("Problem 002 Answer: " + Problem002.Answer.ToString());
         }
     }
 }

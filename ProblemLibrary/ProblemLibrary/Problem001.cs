@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace ProjectEuler
 {
@@ -30,6 +26,8 @@ namespace ProjectEuler
             sumOfDuplicates = GetSumOfMultiples(checked(num1 * num2), max);
 
             Problem001.Answer = sumOfNum1 + sumOfNum2 - sumOfDuplicates;
+
+            Debug.WriteLine("Problem 001 Answer: " + Problem001.Answer.ToString());
         }
 
         private static ulong GetSumOfMultiples(int multipleOf, int max)

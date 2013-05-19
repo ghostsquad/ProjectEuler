@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF6F28F9-C32E-4D9C-A150-017582E8E6AC}</ProjectGuid>
+    <ProjectGuid>{98187ED5-1D01-4DEE-B204-3DAA0097567B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Problem001</RootNamespace>
@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,7 +42,30 @@
   <ItemGroup>
     <Compile Include="Problem001.cs" />
     <Compile Include="Problem002.cs" />
+    <Compile Include="Problem003.cs" />
+    <Compile Include="Problem004.cs" />
+    <Compile Include="Problem005.cs" />
+    <Compile Include="Problem006.cs" />
+    <Compile Include="Problem007.cs" />
+    <Compile Include="Problem008.cs" />
+    <Compile Include="Problem009.cs" />
+    <Compile Include="Problem010.cs" />
+    <Compile Include="Problem011.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AdvancedMath\AdvancedMath\AdvancedMath.csproj">
+      <Project>{e582b0e3-fbb2-4b0e-a064-d39dab80da0e}</Project>
+      <Name>AdvancedMath</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ProblemFiles\Problem008_ThousandDigitNumber.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ProblemFiles\Problem011_Grid.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

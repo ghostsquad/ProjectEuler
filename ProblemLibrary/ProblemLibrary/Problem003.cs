@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using AdvancedMath;
 
 namespace ProjectEuler
@@ -13,15 +12,15 @@ namespace ProjectEuler
     /// </summary>
     public class Problem003
     {
-        public static ulong Answer { get; private set; }
+        public ulong Answer { get; private set; }
 
-        public static void Solve(ulong number = 600851475143)
+        public ulong Solve(ulong number = 600851475143)
         {
-            Problem003.Answer = 0;
+            this.Answer = 0;
 
-            Problem003.Answer = Primality.Factorize(number).Last();
+            this.Answer = Primality.Factorize(number).Last();
 
-            Debug.WriteLine("Problem 003 Answer: " + Problem003.Answer.ToString());
+            return this.Answer;
         }
     }
 }

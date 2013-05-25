@@ -1,17 +1,18 @@
 ﻿using System;
+using ProjectEuler;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ProjectEuler.Test
 {
     [TestClass]
-    public class TestProblem003
+    public class TestProblem005
     {
         [TestMethod]
-        public void SolveProblem003_DefaultParameters()
+        public void SolveProblem005_DefaultParameters()
         {
             //Arrange
-            Problem003 problemObj = new Problem003();
-            ulong expectedAnswer = 6857;
+            Problem005 problemObj = new Problem005();
+            ulong expectedAnswer = 232792560;
 
             //Act
             problemObj.Solve();
@@ -21,30 +22,29 @@ namespace ProjectEuler.Test
         }
 
         [TestMethod]
-        public void SolveProblem003_ExampleNumbers()
+        public void SolveProblem005_ExampleNumbers()
         {
             //Arrange
-            Problem003 problemObj = new Problem003();
-            //The prime factors of 13195 are 5, 7, 13 and 29.
-            ulong expectedAnswer = 29;
+            Problem005 problemObj = new Problem005();
+            //2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+            ulong expectedAnswer = 2520;
 
             //Act
-            problemObj.Solve(13195);
+            problemObj.Solve(1, 10);
 
             //Assert
             Assert.AreEqual(expectedAnswer, problemObj.Answer);
         }
 
         [TestMethod]
-        public void SolveProblem003_SmallNumbers()
+        public void SolveProblem005_SmallNumbers()
         {
             //Arrange
-            Problem003 problemObj = new Problem003();
-            //The prime factors of 20 are 2,2,5
-            ulong expectedAnswer = 5;
+            Problem005 problemObj = new Problem005();
+            ulong expectedAnswer = 2;
 
             //Act
-            problemObj.Solve(20);
+            problemObj.Solve(1, 2);
 
             //Assert
             Assert.AreEqual(expectedAnswer, problemObj.Answer);

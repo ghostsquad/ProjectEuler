@@ -136,12 +136,14 @@ namespace ProjectEuler
 					}
 				case FactoringMethod.Long:
 					{
+						throw new System.NotImplementedException("Long Factor Method Not Implemented");
+
 						IEnumerable<IGrouping<ulong, ulong>> primeFactors = PrimeNumbers.Factorize(numberToFactor).GroupBy(n => n);
 						IEnumerator<IGrouping<ulong, ulong>> primeFactorsEnum = primeFactors.GetEnumerator();
 
 						while (primeFactorsEnum.MoveNext())
 						{
-							numberOfFactors *= primeFactorsEnum.Current.Count() + 1;
+							numberOfFactors = checked(numberOfFactors * (primeFactorsEnum.Current.Count() + 1));
 						}
 
 						break;

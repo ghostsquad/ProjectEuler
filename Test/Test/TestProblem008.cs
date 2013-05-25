@@ -11,13 +11,14 @@ namespace ProjectEuler.Test
         public void SolveProblem008_DefaultParameters()
         {
             //Arrange
+            Problem008 problemObj = new Problem008();
             ulong expectedAnswer = 40824;
 
             //Act
-            ProjectEuler.Problem008.Solve();
+            problemObj.Solve();
 
             //Assert
-            Assert.AreEqual(expectedAnswer, ProjectEuler.Problem008.Answer);
+            Assert.AreEqual(expectedAnswer, problemObj.Answer);
         }
 
         //[TestMethod]

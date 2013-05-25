@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace ProjectEuler
+﻿namespace ProjectEuler
 {
     /// <summary>
     //Multiples of 3 and 5
@@ -9,13 +7,16 @@ namespace ProjectEuler
 
     //Find the sum of all the multiples of 3 or 5 below 1000.
     /// </summary>
-    public static class Problem001
+    public class Problem001
     {
-        public static ulong Answer { get; private set; }
+        public ulong Answer { get; private set; }
 
-        public static void Solve(int num1 = 3, int num2 = 5, int max = 1000)
+        //just an empty object used to make the GetInstance thread safe        
+        private static Problem001 instance;
+
+        public ulong Solve(int num1 = 3, int num2 = 5, int max = 1000)
         {
-            Problem001.Answer = 0;
+            this.Answer = 0;
 
             ulong sumOfNum1 = 0;
             ulong sumOfNum2 = 0;
@@ -25,12 +26,12 @@ namespace ProjectEuler
             sumOfNum2 = GetSumOfMultiples(num2, max);
             sumOfDuplicates = GetSumOfMultiples(checked(num1 * num2), max);
 
-            Problem001.Answer = sumOfNum1 + sumOfNum2 - sumOfDuplicates;
+            this.Answer = sumOfNum1 + sumOfNum2 - sumOfDuplicates;
 
-            Debug.WriteLine("Problem 001 Answer: " + Problem001.Answer.ToString());
+            return this.Answer;
         }
 
-        private static ulong GetSumOfMultiples(int multipleOf, int max)
+        private ulong GetSumOfMultiples(int multipleOf, int max)
         {
             ulong sum = 0;
 

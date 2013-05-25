@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using AdvancedMath;
 
 namespace ProjectEuler
@@ -10,12 +9,14 @@ namespace ProjectEuler
     /// 
     /// What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
     /// </summary>
-    class Problem005
+    public class Problem005
     {
-        public static ulong Answer { get; private set; }
+        public ulong Answer { get; private set; }
 
-        public static void Solve(int low, int high)
+        public ulong Solve(int low = 1, int high = 20)
         {
+            this.Answer = 0;
+
             if (low == 1)
             {
                 low = 2;
@@ -54,17 +55,17 @@ namespace ProjectEuler
             {
                 primeFactorial = checked((ulong)Math.Pow((double)factor, factorPowersFinal[factor]));
 
-                if (Problem005.Answer == 0)
+                if (this.Answer == 0)
                 {
-                    Problem005.Answer = primeFactorial;
+                    this.Answer = primeFactorial;
                 }
                 else
                 {
-                    Problem005.Answer = checked(Problem005.Answer *= primeFactorial);
+                    this.Answer = checked(this.Answer *= primeFactorial);
                 }
             }
 
-            Debug.WriteLine("Problem005 Answer: {0}", Problem005.Answer);
+            return this.Answer;
         }
     }
 }

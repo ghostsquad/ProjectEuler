@@ -4,14 +4,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ProjectEuler.Test
 {
     [TestClass]
-    public class TestProblem003
+    public class TestProblem007
     {
         [TestMethod]
-        public void SolveProblem003_DefaultParameters()
+        public void SolveProblem007_DefaultParameters()
         {
             //Arrange
-            Problem003 problemObj = new Problem003();
-            ulong expectedAnswer = 6857;
+            Problem007 problemObj = new Problem007();
+            ulong expectedAnswer = 104743;
 
             //Act
             problemObj.Solve();
@@ -21,30 +21,30 @@ namespace ProjectEuler.Test
         }
 
         [TestMethod]
-        public void SolveProblem003_ExampleNumbers()
+        public void SolveProblem007_ExampleNumbers()
         {
             //Arrange
-            Problem003 problemObj = new Problem003();
-            //The prime factors of 13195 are 5, 7, 13 and 29.
-            ulong expectedAnswer = 29;
+            Problem007 problemObj = new Problem007();
+            //By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+            ulong expectedAnswer = 13;
 
             //Act
-            problemObj.Solve(13195);
+            problemObj.Solve(6);
 
             //Assert
             Assert.AreEqual(expectedAnswer, problemObj.Answer);
         }
 
         [TestMethod]
-        public void SolveProblem003_SmallNumbers()
+        public void SolveProblem007_SmallNumbers()
         {
             //Arrange
-            Problem003 problemObj = new Problem003();
-            //The prime factors of 20 are 2,2,5
-            ulong expectedAnswer = 5;
+            Problem007 problemObj = new Problem007();
+            //7th prime is 17
+            ulong expectedAnswer = 17;
 
             //Act
-            problemObj.Solve(20);
+            problemObj.Solve(7);
 
             //Assert
             Assert.AreEqual(expectedAnswer, problemObj.Answer);

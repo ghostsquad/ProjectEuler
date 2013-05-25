@@ -6,15 +6,15 @@ namespace ProjectEuler
 {
 	/// <summary>
 	///A Pythagorean triplet is a set of three natural numbers, a  b  c, for which,
-	///a2 + b2 = c2
-	///For example, 32 + 42 = 9 + 16 = 25 = 52.
+	///a^2 + b^2 = c^2
+	///For example, 3^2 + 4^2 = 9 + 16 = 25 = 5^2.
 	///
 	/// There exists exactly one Pythagorean triplet for which a + b + c = 1000.
 	/// Find the product abc.
 	/// </summary>
-	class Problem009
+	public class Problem009
 	{
-		public static ulong Answer { get; private set; }
+		public ulong Answer { get; private set; }
 
 		/// <summary>
 		/// Pythagorean Theorem
@@ -45,8 +45,10 @@ namespace ProjectEuler
 		/// s = 3, t = 6 produces the triple [9, 12, 15] because a = 6 + 3 = 9,  b = 6 +  6 = 12,  c = 6 + 3 + 6 = 15.
 		/// 
 		/// </summary>
-		public static void Solve(int sumGoal = 1000)
+		public ulong Solve(int sumGoal = 1000)
 		{
+			this.Answer = 0;
+
 			int r = 2;
 			int s;
 			int t;
@@ -58,7 +60,7 @@ namespace ProjectEuler
 			int sum = 0;
 			int numToFactor;
 
-			while (Problem009.Answer == 0)
+			while (this.Answer == 0)
 			{
 				//first lets get factors of r^2 / 2
 				numToFactor = r * r / 2;
@@ -95,7 +97,7 @@ namespace ProjectEuler
 						//Debug.WriteLine(string.Format("triple generated [{0},{1},{2}]", a, b, c));
 						//Debug.WriteLine("sum " + sum.ToString());
 
-						Problem009.Answer = (ulong)(a * b * c);
+						this.Answer = (ulong)(a * b * c);
 						break;
 					}
 				}                
@@ -105,10 +107,10 @@ namespace ProjectEuler
 
 			}
 
-			Debug.WriteLine("Problem009 Answer: {0}", Problem009.Answer);
+			return this.Answer;
 		}
 
-		private static List<Tuple<int, int>> GenerateFactors(int num)
+		private List<Tuple<int, int>> GenerateFactors(int num)
 		{
 			Debug.WriteLine("generating factors for " + num.ToString());
 			List<Tuple<int, int>> factorTuples = new List<Tuple<int, int>>();

@@ -39,13 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumHelper.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\PrimeNumbers\PrimeNumbers\PrimeNumbers.csproj">
-      <Project>{ecec624f-92d9-4400-8971-d6a51e574415}</Project>
-      <Name>PrimeNumbers</Name>
+    <ProjectReference Include="..\..\AdvancedMath\AdvancedMath\AdvancedMath.csproj">
+      <Project>{e582b0e3-fbb2-4b0e-a064-d39dab80da0e}</Project>
+      <Name>AdvancedMath</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

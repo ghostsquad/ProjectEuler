@@ -12,7 +12,7 @@ namespace AdvancedMath
     {
         public static List<ulong> KnownPrimes { get; private set; }
 
-        private static string PrimeNumbersCacheFileName = "PrimeNumbersCache.txt";
+        //private static string PrimeNumbersCacheFileName = "PrimeNumbersCache.txt";
 
         static Primality()
         {
@@ -223,11 +223,27 @@ namespace AdvancedMath
                 {
                     //get the next prime in list
                     primeIndex++;
+                    if (primeIndex > KnownPrimes.Count - 1)
+                    {
+                        break;
+                    }
                     prime = KnownPrimes[primeIndex];
                 }
             }
 
             return factors;
+        }
+
+        public static List<int> Factorize(int number)
+        {
+            List<ulong> factorsUlong = Primality.Factorize((ulong)number);
+            List<int> factorsInt = new List<int>();
+            foreach (ulong factor in factorsUlong)
+            {
+                factorsInt.Add(checked((int)factor));
+            }
+
+            return factorsInt;
         }
 
         public static SortedList<ulong, int> FactorizeReturnFactorPowers(ulong num)

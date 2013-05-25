@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace ProjectEuler
+﻿namespace ProjectEuler
 {
     /// <summary>
     /// The sum of the squares of the first ten natural numbers is,
@@ -13,9 +11,9 @@ namespace ProjectEuler
     ///
     /// Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
     /// </summary>
-    class Problem006
+    public class Problem006
     {
-        public static ulong Answer { get; private set; }
+        public ulong Answer { get; private set; }
 
         /// <summary>
         /// 
@@ -32,16 +30,18 @@ namespace ProjectEuler
         /// 
         /// </summary>
         /// <param name="args"></param>
-        public static void Solve(int highNumber)
+        public ulong Solve(int highNumber = 100)
         {
+            this.Answer = 0;
+
             ulong n = (ulong)highNumber;
             ulong sumOfSquares = checked((n * (n + 1) * (2 * n + 1)) / 6);
             ulong sumOfConsecutive = checked((n * (n + 1)) / 2);
             ulong squareOfSums = checked(sumOfConsecutive * sumOfConsecutive);
 
-            Problem006.Answer = checked(squareOfSums - sumOfSquares);
+            this.Answer = checked(squareOfSums - sumOfSquares);
 
-            Debug.WriteLine("Problem006 Answer: {0}", Problem006.Answer);
+            return this.Answer;
         }
     }
 }

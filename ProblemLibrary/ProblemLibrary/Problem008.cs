@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace ProjectEuler
@@ -9,13 +8,15 @@ namespace ProjectEuler
     /// </summary>
     public class Problem008
     {
-        public static ulong Answer { get; private set; }
+        public ulong Answer { get; private set; }
 
-        private static Queue<int> fiveDigits = new Queue<int>();
+        private Queue<int> fiveDigits = new Queue<int>();
         private static string ThousandDigitNumberFileName = "ProblemFiles\\Problem008_ThousandDigitNumber.txt";
 
-        public static void Solve()
+        public ulong Solve()
         {
+            this.Answer = 0;
+
             int product;
             using (StreamReader sr = new StreamReader(Problem008.ThousandDigitNumberFileName))
             {
@@ -39,9 +40,9 @@ namespace ProjectEuler
                             {
                                 product *= digit;
                             }
-                            if (product > (int)Problem008.Answer)
+                            if (product > (int)this.Answer)
                             {
-                                Problem008.Answer = (ulong)product;
+                                this.Answer = (ulong)product;
                             }
 
                             fiveDigits.Dequeue();
@@ -50,7 +51,7 @@ namespace ProjectEuler
                 }
             }
 
-            Debug.WriteLine("Problem008 Answer: {0}", Problem008.Answer);
+            return this.Answer;
         }
     }
 }

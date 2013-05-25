@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace ProjectEuler
+﻿namespace ProjectEuler
 {
     /// <summary>
     //Even Fibonacci numbers
@@ -13,11 +11,11 @@ namespace ProjectEuler
     /// </summary>
     public class Problem002
     {
-        public static ulong Answer { get; private set; }
+        public ulong Answer { get; private set; }
 
-        public static void Solve(int maxSequenceTerm = 4000000)
+        public ulong Solve(int maxSequenceTerm = 4000000)
         {
-            Problem002.Answer = 0;
+            this.Answer = 0;
 
             int term1 = 1;
             int term2 = 2;
@@ -27,7 +25,7 @@ namespace ProjectEuler
             {
                 if (term2 % 2 == 0)
                 {
-                    Problem002.Answer = checked(Problem002.Answer + (ulong)term2);
+                    this.Answer = checked(this.Answer + (ulong)term2);
                 }
 
                 tempTerm = term1;
@@ -35,7 +33,7 @@ namespace ProjectEuler
                 term2 = tempTerm + term2;
             }
 
-            Debug.WriteLine("Problem 002 Answer: " + Problem002.Answer.ToString());
+            return this.Answer;
         }
     }
 }

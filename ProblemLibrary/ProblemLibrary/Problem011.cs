@@ -1,82 +1,163 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AdvancedMath;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
 namespace ProjectEuler
 {
     /// <summary>
-
+    /// In the 2020 grid below, four numbers along a diagonal line have been marked in red.
+    /// ....
+    /// The product of these numbers is 26  63  78  14 = 1788696.
+    /// What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 2020 grid?
     /// </summary>
-    public static class Problem011
+    public class Problem011
     {
-        public static ulong Answer { get; private set; }
-        public static string FinalDirection { get; private set; }
-        public static List<GridCoordinate> FinalCoordinates { get; private set; }
+        public ulong Answer { get; private set; }
+        public DirectionType FinalDirection { get; private set; }
+        public List<GridCoordinate> FinalCoordinates { get; private set; }
 
-        private static bool _solved = false;
-        public static bool Solved { get { return Problem011._solved; } private set { Problem011._solved = value; } }
-
-        private static string _marketValue = string.Empty;
-        public static string MarketValue { private get { return Problem011._marketValue; } set { _marketValue = value.ToUpper(); } }
+        private bool _solved = false;
+        public bool Solved { get { return this._solved; } private set { this._solved = value; } }
 
         private static string GridFileName = "ProblemFiles\\Problem011_Grid.txt";
         private static List<List<int>> Grid;
 
-        /// <summary>
-        /// What is the greatest product of four adjacent numbers in the same direction (up, down, left right, or diagonal) in the 20x20 grid?
-        /// </summary>
-        public static void Solve(int gridWidth)
+        private int maxIndex;
+
+        public ulong Solve(int gridWidth = 20)
         {
-            Problem011.FinalDirection = DirectionType.NoDirection;
-            Problem011.FinalCoordinates = new List<GridCoordinate>();
+            this.Answer = 0;
+
+            this.FinalDirection = DirectionType.NoDirection;
+            this.FinalCoordinates = new List<GridCoordinate>();
+            this.maxIndex = gridWidth - 1;
             Problem011.InitGrid();
-
-            List<GridCoordinate> tempCoordinates = new List<GridCoordinate>();
-
-            ulong tempProduct = 0;
-            //setup the 4 numbers that were multiplied together to get us our answer
-            //we also need a temporary set of coordinates
+            
             for (int i = 1; i <= 4; i++)
             {
-                FinalCoordinates.Add(new GridCoordinate());
-                tempCoordinates.Add(new GridCoordinate());
+                FinalCoordinates.Add(new GridCoordinate());                
             }
-
-            bool moveOn = false;
 
             for (int rowNum = 0; rowNum < gridWidth; rowNum++)
             {
 
                 for (int colNum = 0; colNum < gridWidth; colNum++)
                 {
-                    moveOn = false;
-
-                    //go right                    
+                    //go right
+                    GetSaveConsecutiveNumbers((new Point(rowNum, colNum)), DirectionType.Right);
 
                     //go down
+                    GetSaveConsecutiveNumbers((new Point(rowNum, colNum)), DirectionType.Down);
 
                     //go diagonal left
+                    GetSaveConsecutiveNumbers((new Point(rowNum, colNum)), DirectionType.DiagonalLeft);
 
                     //go diagonal right
-
+                    GetSaveConsecutiveNumbers((new Point(rowNum, colNum)), DirectionType.DiagonalRight);
                 }
 
             }
 
-            Problem011.Solved = true;
+            this.Solved = true;
+
+            return this.Answer;
         }
 
-        private static List<int> GetConsecutiveNumbers(Point currentLocation, DirectionType direction)
+        private void GetSaveConsecutiveNumbers(Point currentLocation, DirectionType direction)
         {
-            List<int> consecutiveNumbers = new List<int>();
+            bool spaceRight = (this.maxIndex - currentLocation.X >= 4);
+            bool spaceDown = (this.maxIndex - currentLocation.Y >= 4);
+            bool spaceLeft = (currentLocation.X >= 3);
 
-            return consecutiveNumbers;
+            int columnsToMove = 0;
+            int rowsToMove = 0;
+
+            bool spaceAvail = false;
+
+            switch(direction)
+            {
+                case DirectionType.Right:
+                    if (spaceRight)
+                    {
+                        spaceAvail = true;
+                        columnsToMove = 4;
+                    }                    
+
+                    break;
+                case DirectionType.Down:
+                    if (spaceDown)
+                    {
+                        spaceAvail = true;
+                        rowsToMove = 4;
+                    }                    
+
+                    break;
+                case DirectionType.DiagonalLeft:
+                    if (spaceDown && spaceLeft)
+                    {
+                        spaceAvail = true;
+                        rowsToMove = 4;
+                        columnsToMove = -4;                        
+                    }
+
+                    break;
+                case DirectionType.DiagonalRight:
+                    if (spaceDown && spaceRight)
+                    {
+                        spaceAvail = true;
+                        rowsToMove = 4;
+                        columnsToMove = 4;
+                    }                    
+
+                    break;
+            }
+
+            if (!spaceAvail)
+            {
+                return;
+            }
+
+            List<GridCoordinate> tempCoordinates = new List<GridCoordinate>();
+
+            int columnsMoved = 0;
+            int rowsMoved = 0;
+
+            ulong newProduct = 1;
+
+            for (int i = 0; i < 4; i++)
+            {
+                int newRow = currentLocation.Y;
+                int newCol = currentLocation.X;
+
+                //update row
+                if (rowsToMove > rowsMoved)
+                {
+                    newRow = currentLocation.Y + (rowsToMove > 0 ? i : -i);
+                }                
+                //update column
+                if (columnsToMove > columnsMoved)
+                {
+                    newCol = currentLocation.X + (columnsToMove > 0 ? i : -i);
+                }
+
+                int num = Grid[newRow][newCol];
+
+                if (num == 0)
+                {
+                    break;
+                }
+
+                newProduct = checked(newProduct * (ulong)num);
+
+                tempCoordinates.Add(new GridCoordinate(Grid[newRow][newCol], new Point(newRow, newCol)));
+            }
+
+            if (newProduct > this.Answer)
+            {
+                SaveProductCoordinates(newProduct, tempCoordinates, direction);
+            }
         }
 
         private static void InitGrid()
@@ -94,26 +175,23 @@ namespace ProjectEuler
             }
         }
 
-        private static void SaveProductCoordinates(ulong tempProduct, List<GridCoordinate> TempCoordinates, string direction)
-        {
-            if (tempProduct > Problem011.Answer)
-            {
-                Point TempPoint;
+        private void SaveProductCoordinates(ulong tempProduct, List<GridCoordinate> TempCoordinates, DirectionType direction)
+        {            
+            Point TempPoint;
 
-                Problem011.Answer = tempProduct;
-                Problem011.FinalDirection = direction;
-                for (int i = 0; i < 4; i++)
-                {
-                    TempPoint = TempCoordinates[i].Point;
-                    Problem011.FinalCoordinates[i].Num = TempCoordinates[i].Num;
-                    Problem011.FinalCoordinates[i].Point = new Point(TempPoint.X, TempPoint.Y);
-                }
-            }
+            this.Answer = tempProduct;
+            this.FinalDirection = direction;
+            for (int i = 0; i < 4; i++)
+            {
+                TempPoint = TempCoordinates[i].Point;
+                this.FinalCoordinates[i].Num = TempCoordinates[i].Num;
+                this.FinalCoordinates[i].Point = new Point(TempPoint.X, TempPoint.Y);
+            }            
         }
 
-        public static void DisplayGrid()
+        public void DisplayGrid()
         {
-            if (!Problem011.Solved)
+            if (!this.Solved)
             {
                 throw new System.ApplicationException("problem needs solving before displaying grid");
             }
@@ -124,7 +202,7 @@ namespace ProjectEuler
                 for (int colNum = 0; colNum < gridRow.Count; colNum++)
                 {
 
-                    foreach (GridCoordinate gridCoor in FinalCoordinates)
+                    foreach (GridCoordinate gridCoor in this.FinalCoordinates)
                     {
                         if (gridCoor.Point.X == colNum && gridCoor.Point.Y == rowNum)
                         {
@@ -148,19 +226,30 @@ namespace ProjectEuler
             }
         }
 
-        private class GridCoordinate
+        public class GridCoordinate
         {
-            public int Num;
-            public System.Drawing.Point Point;
+            public int Num { get; set; }
+            public System.Drawing.Point Point { get; set; }
+
+            public GridCoordinate()
+            {
+
+            }
+
+            public GridCoordinate(int num, Point point)
+            {
+                this.Num = num;
+                this.Point = point;
+            }
         }
 
-        private static class DirectionType
-        {
-            public static readonly string Down = "Down";
-            public static readonly string Right = "Right";
-            public static readonly string DiagonalRight = "Diagonal Right";
-            public static readonly string DiagonalLeft = "Diagonal Left";
-            public static readonly string NoDirection = "No Direction";
+        public enum DirectionType
+        {           
+            Down,            
+            Right,            
+            DiagonalRight,
+            DiagonalLeft,
+            NoDirection
         }
     }
 }

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{98187ED5-1D01-4DEE-B204-3DAA0097567B}</ProjectGuid>
+    <ProjectGuid>{CF6F28F9-C32E-4D9C-A150-017582E8E6AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Problem001</RootNamespace>
@@ -51,6 +51,10 @@
     <Compile Include="Problem009.cs" />
     <Compile Include="Problem010.cs" />
     <Compile Include="Problem011.cs" />
+    <Compile Include="Problem012.cs" />
+    <Compile Include="Problem013.cs" />
+    <Compile Include="Problem014.cs" />
+    <Compile Include="Problem015.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,8 +62,13 @@
       <Project>{e582b0e3-fbb2-4b0e-a064-d39dab80da0e}</Project>
       <Name>AdvancedMath</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ExtensionMethodsAndHelpers\ExtensionMethodsAndHelpers\ExtensionMethodsAndHelpers.csproj">
+      <Project>{6d6b10fa-00c8-4c93-8583-c917d2df29d2}</Project>
+      <Name>ExtensionMethodsAndHelpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ProblemFiles\Problem013_FiftyDigitNumbers.txt" />
     <Content Include="ProblemFiles\Problem008_ThousandDigitNumber.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

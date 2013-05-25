@@ -8,13 +8,13 @@ namespace ProjectEuler
     ///
     /// Find the sum of all the primes below two million.
     /// </summary>
-    public static class Problem010
+    public class Problem010
     {
-        public static ulong Answer { get; private set; }
+        public ulong Answer { get; private set; }
 
-        public static void Solve(int maxPrime)
+        public ulong Solve(int maxPrime = 2000000)
         {
-            Problem010.Answer = 0;
+            this.Answer = 0;
 
             Primality.GeneratePrimes(maxPrime);
 
@@ -25,10 +25,10 @@ namespace ProjectEuler
                     break;
                 }
 
-                Problem010.Answer = checked(Problem010.Answer + prime);
+                this.Answer = checked(this.Answer + prime);
             }
 
-            Debug.WriteLine("Problem010 Answer: {0}", Problem010.Answer);
+            return this.Answer;
         }
     }
 }

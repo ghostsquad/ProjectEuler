@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProjectEuler;
+using AdvancedMath;
 
-namespace ExtensionMethods
+namespace ExtensionMethodsAndHelpers
 {
     public static class MathHelper
     {      
@@ -88,19 +88,19 @@ namespace ExtensionMethods
             while (num > 1)
             {
 
-                numeratorFactorialParts.AddRange(ProjectEuler.PrimeNumbers.Factorize(num));
+                numeratorFactorialParts.AddRange(Primality.Factorize(num));
                 num--;
             }
 
             while (denomFactorial1 > 1)
             {
-                denominatorFactorialParts.AddRange(ProjectEuler.PrimeNumbers.Factorize(denomFactorial1));
+                denominatorFactorialParts.AddRange(Primality.Factorize(denomFactorial1));
                 denomFactorial1--;
             }
 
             while (denomFactorial2 > 1)
             {
-                denominatorFactorialParts.AddRange(ProjectEuler.PrimeNumbers.Factorize(denomFactorial2));
+                denominatorFactorialParts.AddRange(Primality.Factorize(denomFactorial2));
                 denomFactorial2--;
             }
 
@@ -139,7 +139,7 @@ namespace ExtensionMethods
                 {
                     numerator = checked(numerator * (ulong)numeratorPart);
                     numeratorPartsIterated++;
-                    if (numeratorPartsIterated < numeratorFactorialParts.Count)
+                    if (numeratorPartsIterated < numeratorFactorialParts.Count - 1)
                     {
                         numeratorPart = numeratorFactorialParts[numeratorPartsIterated];
                     }                    

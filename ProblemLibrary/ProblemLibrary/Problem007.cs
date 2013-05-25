@@ -1,22 +1,23 @@
-﻿using System.Diagnostics;
-using AdvancedMath;
+﻿using AdvancedMath;
 
 namespace ProjectEuler
 {
     /// <summary>
 
     /// </summary>
-    class Problem007
+    public class Problem007
     {
-        public static ulong Answer { get; private set; }
+        public ulong Answer { get; private set; }
 
-        public static void Solve(int terms)
+        public ulong Solve(int terms = 10001)
         {
+            this.Answer = 0;
+
             Primality.GeneratePrimes(terms, Primality.PrimeGenerationType.MaxTerm);
 
-            Problem007.Answer = Primality.KnownPrimes[terms - 1];
+            this.Answer = Primality.KnownPrimes[terms - 1];
 
-            Debug.WriteLine("Problem007 Answer: {0}", Problem007.Answer);
+            return this.Answer;
         }
     }
 }

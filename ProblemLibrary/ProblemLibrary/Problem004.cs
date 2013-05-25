@@ -11,19 +11,19 @@ namespace ProjectEuler
      * 
      */
     /// </summary>
-    class Problem004
+    public class Problem004
     {
-        public static ulong Answer { get; private set; }
+        public ulong Answer { get; private set; }
 
-        private static int lowestProductPreviousRun;
-        private static int largestPalindrome = 0;
-        private static int factor1startpoint;
-        private static int factor2startpoint;
-        private static int lowestFactor;
+        private int lowestProductPreviousRun;
+        private int largestPalindrome = 0;
+        private int factor1startpoint;
+        private int factor2startpoint;
+        private int lowestFactor;
 
-        public static void Solve(int numberOfDigits = 3)
+        public ulong Solve(int numberOfDigits = 3)
         {
-            Problem004.Answer = 0;
+            this.Answer = 0;
 
             /*            
             * what we need to do, is decrement one factor until we find a palindrome
@@ -46,26 +46,28 @@ namespace ProjectEuler
             * this happens when factor2 starts fresh, and is immediately met with a product that is smaller that the lowest product from the previous run
             */
 
-            Problem004.factor1startpoint = (int)(Math.Pow(10, numberOfDigits) - 1);
-            Problem004.factor2startpoint = factor1startpoint;
-            Problem004.lowestFactor = (int)(Math.Pow(10, numberOfDigits - 1));
+            this.factor1startpoint = (int)(Math.Pow(10, numberOfDigits) - 1);
+            this.factor2startpoint = factor1startpoint;
+            this.lowestFactor = (int)(Math.Pow(10, numberOfDigits - 1));
 
-            for (int factor1 = factor1startpoint; factor1 > lowestFactor; factor1--)
+            for (int factor1 = factor1startpoint; factor1 >= lowestFactor; factor1--)
             {
                 //here we set factor 2 to the same as factor one, as shown in the example above
                 //as the outer loop progresses, the inner loop starting point will always be the same as the outer loop starting point
-                Problem004.factor2startpoint = factor1;
+                this.factor2startpoint = factor1;
 
-                if (!CheckIfLargerPalindromeAvailable(Problem004.factor2startpoint))
+                if (!CheckIfLargerPalindromeAvailable(this.factor2startpoint))
                 {
                     break;
                 }
             }
 
-            Problem004.Answer = (ulong)Problem004.largestPalindrome;
+            this.Answer = (ulong)this.largestPalindrome;
+
+            return this.Answer;
         }
 
-        private static bool CheckIfLargerPalindromeAvailable(int factor2startpoint)
+        private bool CheckIfLargerPalindromeAvailable(int factor2startpoint)
         {
             int factor1 = factor2startpoint;
 
@@ -78,14 +80,14 @@ namespace ProjectEuler
                 product = factor1 * factor2;
 
                 //set the lowest product to the current product if it hasn't been set yet
-                if (Problem004.lowestProductPreviousRun == null)
+                if (this.lowestProductPreviousRun == null)
                 {
-                    Problem004.lowestProductPreviousRun = product;
+                    this.lowestProductPreviousRun = product;
                 }
 
                 //products are only getting smaller for each iteration
                 //break early if the product is smaller than the lowest product from the previous run
-                if (product < Problem004.lowestProductPreviousRun)
+                if (product < this.lowestProductPreviousRun)
                 {
                     //here is where we tell the factor1 loop to break, because any operation done from here on out will always
                     //be smaller than the largest palindrome found so far
@@ -102,10 +104,10 @@ namespace ProjectEuler
 
                 if (productString == productStringReverse)
                 {
-                    if (product > Problem004.largestPalindrome)
+                    if (product > this.largestPalindrome)
                     {
-                        Problem004.lowestProductPreviousRun = product;
-                        Problem004.largestPalindrome = product;
+                        this.lowestProductPreviousRun = product;
+                        this.largestPalindrome = product;
                     }
                     break;
                 }

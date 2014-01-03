@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF6F28F9-C32E-4D9C-A150-017582E8E6AC}</ProjectGuid>
+    <ProjectGuid>{98187ED5-1D01-4DEE-B204-3DAA0097567B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Problem001</RootNamespace>
@@ -40,21 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Problem001.cs" />
-    <Compile Include="Problem002.cs" />
-    <Compile Include="Problem003.cs" />
-    <Compile Include="Problem004.cs" />
-    <Compile Include="Problem005.cs" />
-    <Compile Include="Problem006.cs" />
-    <Compile Include="Problem007.cs" />
-    <Compile Include="Problem008.cs" />
-    <Compile Include="Problem009.cs" />
-    <Compile Include="Problem010.cs" />
-    <Compile Include="Problem011.cs" />
-    <Compile Include="Problem012.cs" />
-    <Compile Include="Problem013.cs" />
-    <Compile Include="Problem014.cs" />
-    <Compile Include="Problem015.cs" />
+    <Compile Include="Problems\Problem001.cs" />
+    <Compile Include="Problems\Problem002.cs" />
+    <Compile Include="Problems\Problem003.cs" />
+    <Compile Include="Problems\Problem004.cs" />
+    <Compile Include="Problems\Problem005.cs" />
+    <Compile Include="Problems\Problem006.cs" />
+    <Compile Include="Problems\Problem007.cs" />
+    <Compile Include="Problems\Problem008.cs" />
+    <Compile Include="Problems\Problem009.cs" />
+    <Compile Include="Problems\Problem010.cs" />
+    <Compile Include="Problems\Problem011.cs" />
+    <Compile Include="Problems\Problem012.cs" />
+    <Compile Include="Problems\Problem013.cs" />
+    <Compile Include="Problems\Problem014.cs" />
+    <Compile Include="Problems\Problem015.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,7 +68,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ProblemFiles\Problem013_FiftyDigitNumbers.txt" />
+    <Content Include="ProblemFiles\Problem013_FiftyDigitNumbers.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ProblemFiles\Problem008_ThousandDigitNumber.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

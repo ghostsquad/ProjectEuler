@@ -39,11 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPrimalityTest.cs" />
     <Compile Include="Primality.cs" />
+    <Compile Include="IPrimeNumberAlgorithm.cs" />
+    <Compile Include="PrimalityTests\AKSPrimalityTest.cs" />
+    <Compile Include="PrimalityTests\TrialDivisionPrimalityTest.cs" />
+    <Compile Include="PrimeNumberAlgorithms\SieveOfAtkin.cs" />
+    <Compile Include="PrimeNumberAlgorithms\SieveOfEratosthenes.cs" />
+    <Compile Include="PrimeNumberAlgorithms\SieveOfEuler.cs" />
+    <Compile Include="PrimeNumberAlgorithms\TrialDivision.cs" />
+    <Compile Include="PrimeNumberAlgorithms\WheelSieve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="PrimeNumbersCache.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
